@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import './FurnitureList.css';
 import FurnitureForm from './FurnitureForm';
+import FurnitureCard from './FurnitureCard';
 
 const FurnitureList = ({ items, onEdit, onDelete, onAdd }) => {
     const [showAddForm, setShowAddForm] = useState(false);
@@ -37,64 +39,14 @@ const FurnitureList = ({ items, onEdit, onDelete, onAdd }) => {
                 {items.length === 0 ? (
                     <p>No furniture items available</p>
                 ) : (
-                    <div>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: '2fr 1.5fr 1fr auto',
-                            gap: '15px',
-                            padding: '12px',
-                            borderBottom: '1px solid #eee',
-                            alignItems: 'center',
-                            fontWeight: 'bold'
-                        }}>
-                            <div>Name</div>
-                            <div>Category</div>
-                            <div>Quantity</div>
-                            <div>Actions</div>
-                        </div>
+                    <div className="furniture-grid">
                         {items.map(item => (
-                            <div key={item.id} style={{
-                                display: 'grid',
-                                gridTemplateColumns: '2fr 1.5fr 1fr auto',
-                                gap: '15px',
-                                padding: '12px',
-                                borderBottom: '1px solid #eee',
-                                alignItems: 'center'
-                            }}>
-                                <div style={{ fontWeight: '500' }}>{item.name}</div>
-                                <div>{item.category}</div>
-                                <div>{item.quantity}</div>
-                                <div style={{ display: 'flex', gap: '5px' }}>
-                                    <button 
-                                        onClick={() => onEdit(item)}
-                                        style={{
-                                            padding: '3px 8px',
-                                            backgroundColor: '#3498db',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '4px',
-                                            cursor: 'pointer',
-                                            fontSize: '0.9rem'
-                                        }}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => onDelete(item.id)}
-                                        style={{
-                                            padding: '3px 8px',
-                                            backgroundColor: '#e74c3c',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '4px',
-                                            cursor: 'pointer',
-                                            fontSize: '0.9rem'
-                                        }}
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
+                            <FurnitureCard 
+                                key={item.id} 
+                                item={item} 
+                                onEdit={onEdit} 
+                                onDelete={onDelete} 
+                            />
                         ))}
                     </div>
                 )}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import HouseForm from './HouseForm';
+import HouseCard from './HouseCard';
+import './HouseList.css';
 
-const HouseList = ({ houses, onAddHouse, onEditHouse, onDeleteHouse }) => {
+const HouseList = ({ houses, onAddHouse, onEditHouse, onDeleteHouse, furnitureItems, onAssignFurniture }) => {
     const [showAddForm, setShowAddForm] = useState(false);
 
     return (
@@ -37,64 +39,16 @@ const HouseList = ({ houses, onAddHouse, onEditHouse, onDeleteHouse }) => {
                 {houses.length === 0 ? (
                     <p>No houses available</p>
                 ) : (
-                    <div>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: '2fr 1.5fr 1fr auto',
-                            gap: '15px',
-                            padding: '12px',
-                            borderBottom: '1px solid #eee',
-                            alignItems: 'center',
-                            fontWeight: 'bold'
-                        }}>
-                            <div>Address</div>
-                            <div>Type</div>
-                            <div>Rooms</div>
-                            <div>Actions</div>
-                        </div>
+                    <div className="house-grid">
                         {houses.map(house => (
-                        <div key={house.id} style={{
-                            display: 'grid',
-                            gridTemplateColumns: '2fr 1.5fr 1fr auto',
-                            gap: '15px',
-                            padding: '12px',
-                            borderBottom: '1px solid #eee',
-                            alignItems: 'center'
-                        }}>
-                            <div style={{ fontWeight: '500' }}>{house.address}</div>
-                            <div>{house.type}</div>
-                            <div>{house.rooms}</div>
-                            <div style={{ display: 'flex', gap: '5px' }}>
-                                <button 
-                                    onClick={() => onEditHouse(house)}
-                                    style={{
-                                        padding: '3px 8px',
-                                        backgroundColor: '#3498db',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '4px',
-                                        cursor: 'pointer',
-                                        fontSize: '0.9rem'
-                                    }}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => onDeleteHouse(house.id)}
-                                    style={{
-                                        padding: '3px 8px',
-                                        backgroundColor: '#e74c3c',
-                                        color: 'white',
-                                        border: 'none',
-                                        borderRadius: '4px',
-                                        cursor: 'pointer',
-                                        fontSize: '0.9rem'
-                                    }}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
+                            <HouseCard 
+                                key={house.id} 
+                                house={house} 
+                                onEdit={onEditHouse} 
+                                onDelete={onDeleteHouse} 
+                                furnitureItems={furnitureItems}
+                                onAssignFurniture={onAssignFurniture}
+                            />
                         ))}
                     </div>
                 )}

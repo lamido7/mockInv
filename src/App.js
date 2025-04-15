@@ -46,11 +46,21 @@ const App = () => {
         setHouses(houses.filter(house => house.id !== id));
     };
 
+    // New handler to update furniture assignments in houses
+    const handleAssignFurniture = (houseId, assignments) => {
+        setHouses(houses.map(house => {
+            if (house.id === houseId) {
+                return { ...house, furnitureAssignments: assignments };
+            }
+            return house;
+        }));
+    };
+
     return (
         <Router>
             <div style={{ display: 'flex' }}>
                 <SideNav />
-                <div style={{ marginLeft: '200px', padding: '20px', width: '100%' }}>
+                <div style={{ marginLeft: '100px', padding: '100px', width: '100%' }}>
                     <Routes>
                         <Route path="/" element={
                             <DashboardPage
@@ -72,6 +82,8 @@ const App = () => {
                                 onAddHouse={handleAddHouse}
                                 onEditHouse={handleEditHouse}
                                 onDeleteHouse={handleDeleteHouse}
+                                furnitureItems={items}
+                                onAssignFurniture={handleAssignFurniture}
                             />
                         } />
                     </Routes>

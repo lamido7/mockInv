@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
+const barracksOptions = [
+    "Niger Barracks",
+    "Mogadishu Barracks",
+    "Kado Barracks",
+    "Kubwa Barracks",
+    "Karshi Barracks",
+    "Naval Unit"
+];
+
 const HouseForm = ({ house, onSubmit, onCancel }) => {
     const [formData, setFormData] = useState({
         address: '',
         type: '',
-        rooms: ''
+        rooms: '',
+        block: '',
+        houseNumber: ''
     });
 
     useEffect(() => {
@@ -12,7 +23,9 @@ const HouseForm = ({ house, onSubmit, onCancel }) => {
             setFormData({
                 address: house.address || '',
                 type: house.type || '',
-                rooms: house.rooms || ''
+                rooms: house.rooms || '',
+                block: house.block || '',
+                houseNumber: house.houseNumber || ''
             });
         }
     }, [house]);
@@ -40,14 +53,18 @@ const HouseForm = ({ house, onSubmit, onCancel }) => {
             <h2>{house ? 'Edit House' : 'Add New House'}</h2>
             <div style={{ marginBottom: '15px' }}>
                 <label style={{ display: 'block', marginBottom: '5px' }}>Address:</label>
-                <input
-                    type="text"
+                <select
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
                     required
                     style={{ width: '100%', padding: '8px' }}
-                />
+                >
+                    <option value="">Select address</option>
+                    {barracksOptions.map(option => (
+                        <option key={option} value={option}>{option}</option>
+                    ))}
+                </select>
             </div>
             <div style={{ marginBottom: '15px' }}>
                 <label style={{ display: 'block', marginBottom: '5px' }}>Type:</label>
@@ -73,6 +90,26 @@ const HouseForm = ({ house, onSubmit, onCancel }) => {
                     onChange={handleChange}
                     required
                     min="1"
+                    style={{ width: '100%', padding: '8px' }}
+                />
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px' }}>Block:</label>
+                <input
+                    type="text"
+                    name="block"
+                    value={formData.block}
+                    onChange={handleChange}
+                    style={{ width: '100%', padding: '8px' }}
+                />
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+                <label style={{ display: 'block', marginBottom: '5px' }}>House Number:</label>
+                <input
+                    type="text"
+                    name="houseNumber"
+                    value={formData.houseNumber}
+                    onChange={handleChange}
                     style={{ width: '100%', padding: '8px' }}
                 />
             </div>

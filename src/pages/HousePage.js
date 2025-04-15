@@ -5,7 +5,9 @@ const HousePage = ({
     houses,
     onAddHouse,
     onEditHouse,
-    onDeleteHouse
+    onDeleteHouse,
+    furnitureItems,
+    onAssignFurniture
 }) => {
     return (
         <div>
@@ -15,6 +17,8 @@ const HousePage = ({
                 onAddHouse={onAddHouse}
                 onEditHouse={onEditHouse}
                 onDeleteHouse={onDeleteHouse}
+                furnitureItems={furnitureItems}
+                onAssignFurniture={onAssignFurniture}
             />
         </div>
     );
