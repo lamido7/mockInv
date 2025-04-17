@@ -89,6 +89,11 @@ const FurnitureForm = ({ item, onSubmit, onCancel }) => {
           <option value="Bed">Bed</option>
           <option value="Desk">Desk</option>
           <option value="Storage">Storage</option>
+          <option value="Fridge">Fridge</option>
+          <option value="Deep Freezer">Deep Freezer</option>
+          <option value="Gas Cooker">Gas Cooker</option>
+          <option value="Blender">Blender</option>
+          <option value="TV">TV</option>
           <option value="Other">Other</option>
         </select>
         {errors.category && <div style={{ color: 'red', fontSize: '0.8rem' }}>{errors.category}</div>}

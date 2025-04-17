@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
 import './FurnitureList.css';
-import FurnitureForm from './FurnitureForm';
 import FurnitureCard from './FurnitureCard';
+import FurnitureForm from './FurnitureForm';
 
-const FurnitureList = ({ items, onEdit, onDelete, onAdd }) => {
-    const [showAddForm, setShowAddForm] = useState(false);
+const categories = [
+    "Sofa",
+    "Table",
+    "Chair",
+    "Bed",
+    "Desk",
+    "Storage",
+    "Fridge",
+    "Deep Freezer",
+    "Gas Cooker",
+    "Blender",
+    "TV",
+    "Other"
+];
+
+const FurnitureList = () => {
+    const [showForm, setShowForm] = useState(false);
+
+    const handleAddFurniture = () => {
+        setShowForm(true);
+    };
+
+    const handleFormSubmit = (newFurniture) => {
+        // Handle the submission of new furniture
+        console.log(newFurniture);
+        setShowForm(false);
+    };
 
     return (
         <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2>Furniture Inventory</h2>
                 <button 
-                    onClick={() => setShowAddForm(true)}
+                    onClick={handleAddFurniture}
                     style={{
                         padding: '8px 16px',
                         backgroundColor: '#2ecc71',
@@ -24,32 +49,28 @@ const FurnitureList = ({ items, onEdit, onDelete, onAdd }) => {
                     Add Furniture
                 </button>
             </div>
-
-            {showAddForm && (
+            {showForm && (
                 <FurnitureForm 
-                    onSubmit={(newItem) => {
-                        onAdd(newItem);
-                        setShowAddForm(false);
-                    }}
-                    onCancel={() => setShowAddForm(false)}
+                    onSubmit={handleFormSubmit}
+                    onCancel={() => setShowForm(false)}
                 />
             )}
-
-            <div style={{ marginTop: '20px' }}>
-                {items.length === 0 ? (
-                    <p>No furniture items available</p>
-                ) : (
-                    <div className="furniture-grid">
-                        {items.map(item => (
-                            <FurnitureCard 
-                                key={item.id} 
-                                item={item} 
-                                onEdit={onEdit} 
-                                onDelete={onDelete} 
-                            />
-                        ))}
-                    </div>
-                )}
+            <div className="furniture-grid">
+                {categories.map((category, index) => (
+                    <FurnitureCard 
+                        key={index} 
+                        item={{
+                            name: category,
+                            category: category,
+                            brand: '', // Removed placeholder
+                            purchaseDate: '', // Removed placeholder
+                            price: '', // Removed placeholder
+                            status: 'available' // Default status
+                        }}
+                        onEdit={() => {}}
+                        onDelete={() => {}}
+                    />
+                ))}
             </div>
         </div>
     );
